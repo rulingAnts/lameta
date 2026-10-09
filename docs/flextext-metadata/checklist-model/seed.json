@@ -1,0 +1,683 @@
+{
+  "seedVersion": 3,
+  "steps": [
+    {
+      "id": "consent",
+      "label": "Consent",
+      "full": "Consent from speaker/source",
+      "order": 0
+    },
+    {
+      "id": "metadata",
+      "label": "Metadata",
+      "order": 1,
+      "full": "Session metadata recorded — speaker, date, place, and what the speaker was doing"
+    },
+    {
+      "id": "record",
+      "label": "Record",
+      "full": "Audio recording",
+      "order": 2
+    },
+    {
+      "id": "segment",
+      "label": "Segment",
+      "full": "Audio segmentation",
+      "order": 3
+    },
+    {
+      "id": "transcribe",
+      "label": "Transcribe",
+      "full": "Transcription",
+      "order": 4
+    },
+    {
+      "id": "gloss-lwc",
+      "label": "LWC gloss",
+      "full": "LWC (Indonesian) word gloss",
+      "order": 5
+    },
+    {
+      "id": "ft-lwc",
+      "label": "LWC FT",
+      "full": "LWC free translation",
+      "order": 6
+    },
+    {
+      "id": "flex",
+      "label": "FLEx",
+      "full": "Import into FLEx (abbreviation + title)",
+      "order": 7
+    },
+    {
+      "id": "gloss-en",
+      "label": "EN gloss",
+      "full": "English word gloss",
+      "order": 8
+    },
+    {
+      "id": "ft-en",
+      "label": "EN FT",
+      "full": "English free translation",
+      "order": 9
+    },
+    {
+      "id": "morph",
+      "label": "Morph",
+      "full": "Morph analysis in FLEx",
+      "order": 10,
+      "aliases": {
+        "sil-png": "Interlinearise",
+        "idb": "Morpheme-by-morpheme glossing"
+      }
+    },
+    {
+      "id": "tagging",
+      "label": "Tagging",
+      "full": "Tagging",
+      "order": 11
+    },
+    {
+      "id": "charting",
+      "label": "Charting",
+      "full": "Text charting",
+      "order": 12
+    },
+    {
+      "id": "para",
+      "label": "Paragraph",
+      "full": "Paragraph analysis",
+      "order": 13
+    },
+    {
+      "id": "vern-edit",
+      "label": "Vern edit",
+      "full": "Vernacular editing by a capable writer",
+      "order": 14,
+      "hidden": true
+    },
+    {
+      "id": "author-review",
+      "label": "Author review",
+      "full": "Gone over with the author",
+      "order": 15,
+      "hidden": true
+    },
+    {
+      "id": "published",
+      "label": "Published",
+      "full": "Published / booklet produced",
+      "order": 16,
+      "hidden": true
+    },
+    {
+      "id": "release-forms",
+      "label": "Release",
+      "full": "Signed release forms filed",
+      "order": 17,
+      "hidden": true
+    },
+    {
+      "id": "archive-submitted",
+      "label": "Submitted",
+      "full": "Packaged and submitted (RAMP)",
+      "order": 18,
+      "hidden": true,
+      "aliases": {
+        "sil-png": "RAMPed"
+      }
+    },
+    {
+      "id": "archive-approved",
+      "label": "Approved",
+      "full": "Approved by archive curator",
+      "order": 19,
+      "hidden": true
+    }
+  ],
+  "genres": [
+    {
+      "id": "events",
+      "label": "Texts about events",
+      "parent": null,
+      "sequential": true,
+      "note": "Organised around a main event line. = Longacre +contingent temporal succession."
+    },
+    {
+      "id": "narrative",
+      "label": "Narrative",
+      "parent": "events",
+      "purpose": "ideas",
+      "occurs": true,
+      "longacre": "Narrative",
+      "olac": "narrative"
+    },
+    {
+      "id": "narr-contemporary",
+      "label": "Contemporary narrative",
+      "parent": "narrative",
+      "occurs": true,
+      "olac": "narrative"
+    },
+    {
+      "id": "narr-personal",
+      "label": "Personal story",
+      "parent": "narrative",
+      "occurs": true,
+      "olac": "narrative"
+    },
+    {
+      "id": "narr-historical",
+      "label": "Historical",
+      "parent": "narrative",
+      "occurs": true,
+      "olac": "narrative"
+    },
+    {
+      "id": "narr-dream",
+      "label": "Dream",
+      "parent": "narrative",
+      "occurs": null,
+      "olac": "narrative"
+    },
+    {
+      "id": "narr-traditional",
+      "label": "Traditional oral narrative",
+      "parent": "narrative",
+      "occurs": true,
+      "olac": "narrative"
+    },
+    {
+      "id": "narr-folktale",
+      "label": "Folk tale",
+      "parent": "narr-traditional",
+      "occurs": true,
+      "olac": "narrative"
+    },
+    {
+      "id": "narr-legend",
+      "label": "Legend (supernatural narrative)",
+      "parent": "narr-traditional",
+      "occurs": null,
+      "olac": "narrative",
+      "note": "IDB: the supernatural is credited with unusual happenings tied to a person or locality."
+    },
+    {
+      "id": "narr-fairy",
+      "label": "Fairy tale",
+      "parent": "narr-traditional",
+      "occurs": null,
+      "olac": "narrative",
+      "note": "IDB: supernatural/marvellous treated as a make-believe world."
+    },
+    {
+      "id": "narr-animal",
+      "label": "Animal tale",
+      "parent": "narr-traditional",
+      "occurs": null,
+      "olac": "narrative",
+      "note": "IDB: allegory of human conduct; cleverness over strength."
+    },
+    {
+      "id": "narr-myth",
+      "label": "Myth / origin",
+      "parent": "narr-traditional",
+      "occurs": true,
+      "olac": "narrative"
+    },
+    {
+      "id": "procedural",
+      "label": "Procedural",
+      "parent": "events",
+      "purpose": "behaviour",
+      "occurs": true,
+      "longacre": "Procedural",
+      "olac": "procedural"
+    },
+    {
+      "id": "proc-howto",
+      "label": "How-to",
+      "parent": "procedural",
+      "occurs": true,
+      "olac": "procedural"
+    },
+    {
+      "id": "proc-recipe",
+      "label": "Recipe / food preparation",
+      "parent": "procedural",
+      "occurs": true,
+      "olac": "procedural"
+    },
+    {
+      "id": "proc-cure",
+      "label": "Cure / remedy",
+      "parent": "procedural",
+      "occurs": null,
+      "olac": "procedural"
+    },
+    {
+      "id": "descriptive",
+      "label": "Descriptive",
+      "parent": "events",
+      "purpose": "emotions",
+      "occurs": null,
+      "olac": "report",
+      "note": "Sequential, per the IDB chart. Distinct from expository: description is not explanation."
+    },
+    {
+      "id": "desc-place",
+      "label": "Place",
+      "parent": "descriptive",
+      "occurs": null,
+      "olac": "report"
+    },
+    {
+      "id": "desc-person",
+      "label": "Person",
+      "parent": "descriptive",
+      "occurs": null,
+      "olac": "report"
+    },
+    {
+      "id": "things",
+      "label": "Texts about things",
+      "parent": null,
+      "sequential": false,
+      "note": "Organised around themes, topics and participants. = Longacre -contingent temporal succession."
+    },
+    {
+      "id": "expository",
+      "label": "Expository",
+      "parent": "things",
+      "purpose": "ideas",
+      "occurs": true,
+      "longacre": "Expository",
+      "olac": "report"
+    },
+    {
+      "id": "exp-custom",
+      "label": "Custom / ethnographic description",
+      "parent": "expository",
+      "occurs": true,
+      "olac": "report"
+    },
+    {
+      "id": "exp-explanation",
+      "label": "Explanation",
+      "parent": "expository",
+      "occurs": true,
+      "olac": "report"
+    },
+    {
+      "id": "expressive",
+      "label": "Expressive",
+      "parent": "things",
+      "purpose": "emotions",
+      "occurs": null,
+      "olac": "singing",
+      "note": "The least-defined cell in the IDB chart. Probably the poetic and performative end — song, lament, verbal art — where the shaping of language is itself the point. Worth pinning down with someone who worked with the handbook; the sub-genres below are a guess, not a reading of the source."
+    },
+    {
+      "id": "expr-song",
+      "label": "Song / poetry",
+      "parent": "expressive",
+      "occurs": true,
+      "olac": "singing"
+    },
+    {
+      "id": "expr-lament",
+      "label": "Lament",
+      "parent": "expressive",
+      "occurs": null,
+      "olac": "singing"
+    },
+    {
+      "id": "expr-riddle",
+      "label": "Riddle",
+      "parent": "expressive",
+      "occurs": null,
+      "olac": "ludic"
+    },
+    {
+      "id": "hortatory",
+      "label": "Hortatory (behavioural)",
+      "parent": "things",
+      "purpose": "behaviour",
+      "occurs": true,
+      "longacre": "Behavioural / Hortatory",
+      "olac": "oratory"
+    },
+    {
+      "id": "hort-sermon",
+      "label": "Sermon",
+      "parent": "hortatory",
+      "occurs": true,
+      "olac": "oratory"
+    },
+    {
+      "id": "hort-advice",
+      "label": "Advice",
+      "parent": "hortatory",
+      "occurs": true,
+      "olac": "oratory"
+    },
+    {
+      "id": "hort-dispute",
+      "label": "Dispute settlement",
+      "parent": "hortatory",
+      "occurs": null,
+      "olac": "oratory"
+    },
+    {
+      "id": "hort-proverb",
+      "label": "Proverb",
+      "parent": "hortatory",
+      "occurs": null,
+      "olac": "formulaic"
+    }
+  ],
+  "facets": [
+    {
+      "id": "medium",
+      "label": "Medium",
+      "values": [
+        "Oral recording",
+        "Written by author"
+      ]
+    },
+    {
+      "id": "source",
+      "label": "Source",
+      "values": [
+        "Naturally occurring",
+        "Prompted / stimulus",
+        "Elicited"
+      ]
+    },
+    {
+      "id": "modality",
+      "label": "Modality",
+      "values": [
+        "Monologue",
+        "Dialogue",
+        "Multi-party"
+      ]
+    },
+    {
+      "id": "addressee",
+      "label": "Addressee",
+      "values": [
+        "Linguist only",
+        "Wider audience"
+      ]
+    },
+    {
+      "id": "access",
+      "label": "Access",
+      "values": [
+        "Public",
+        "Restricted",
+        "Closed"
+      ]
+    }
+  ],
+  "stimuli": [
+    {
+      "id": "pear",
+      "label": "Pear Film"
+    },
+    {
+      "id": "se-1a",
+      "label": "Staged Events 1a"
+    },
+    {
+      "id": "se-1b",
+      "label": "Staged Events 1b"
+    },
+    {
+      "id": "se-2a",
+      "label": "Staged Events 2a"
+    },
+    {
+      "id": "se-2b",
+      "label": "Staged Events 2b"
+    },
+    {
+      "id": "frog",
+      "label": "Frog Story"
+    },
+    {
+      "id": "family-problems",
+      "label": "Family Problems Picture Task"
+    },
+    {
+      "id": "cut-break",
+      "label": "Cut and Break Verbs"
+    },
+    {
+      "id": "caused-positions",
+      "label": "Caused Positions"
+    },
+    {
+      "id": "motion",
+      "label": "Motion Verbs"
+    },
+    {
+      "id": "video-prompt",
+      "label": "Video prompt (other)"
+    },
+    {
+      "id": "translation-prompt",
+      "label": "Translation prompt"
+    }
+  ],
+  "targets": [
+    {
+      "id": "lttw-2026",
+      "label": "LTTW 2026 (workshop minimum)",
+      "short": "LTTW",
+      "accent": "#B4712B",
+      "source": "Seth's own minimum for the next workshop",
+      "rules": [
+        {
+          "id": "lttw-stim",
+          "kind": "named",
+          "label": "Prompted / elicited texts to collect",
+          "requiredSteps": [
+            "consent",
+            "record",
+            "segment",
+            "transcribe",
+            "gloss-lwc",
+            "ft-lwc",
+            "flex"
+          ],
+          "items": [
+            {
+              "id": "pear",
+              "label": "Pear Film",
+              "order": 1
+            },
+            {
+              "id": "se-2a",
+              "label": "Staged Events 2a",
+              "alternatives": [
+                "Staged Events 1a"
+              ],
+              "recommended": true,
+              "order": 2
+            },
+            {
+              "id": "se-2b",
+              "label": "Staged Events 2b",
+              "alternatives": [
+                "Staged Events 1b"
+              ],
+              "recommended": true,
+              "order": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "idb",
+      "label": "IDB Handbook",
+      "short": "IDB",
+      "accent": "#6E7A73",
+      "source": "SIL Indonesia Branch Handbook §4.1",
+      "sourceNote": "Original byte-size measures (300kb/50kb plain ASCII) and FIESTA were Shoebox/Toolbox-era and are not carried over; the tiering is preserved as text counts.",
+      "rules": [
+        {
+          "id": "idb-30",
+          "kind": "count",
+          "label": "30 texts with free translations",
+          "min": 30,
+          "requiredSteps": [
+            "transcribe",
+            "ft-lwc"
+          ]
+        },
+        {
+          "id": "idb-genres",
+          "kind": "eachChild",
+          "label": "≥2 texts of each discourse genre naturally occurring",
+          "minEach": 2,
+          "childrenOfRoots": true,
+          "onlyIfOccurs": true,
+          "requiredSteps": [
+            "transcribe",
+            "ft-lwc"
+          ]
+        },
+        {
+          "id": "idb-glossed",
+          "kind": "count",
+          "label": "A substantial subset glossed morpheme-by-morpheme",
+          "min": null,
+          "requiredSteps": [
+            "morph"
+          ],
+          "note": "Original stated a byte quantity; set your own count for a hard target."
+        },
+        {
+          "id": "idb-chart",
+          "kind": "count",
+          "label": "3 good-sized narrative texts fully charted",
+          "min": 3,
+          "scope": {
+            "genre": "narrative",
+            "minSentences": 20
+          },
+          "requiredSteps": [
+            "charting"
+          ],
+          "note": "Handbook footnote: good-sized = 20–50 sentences."
+        },
+        {
+          "id": "idb-pub",
+          "kind": "count",
+          "label": "Some texts published",
+          "min": null,
+          "requiredSteps": [
+            "published"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sil-png",
+      "label": "SIL PNG",
+      "short": "PNG",
+      "accent": "#10514D",
+      "source": "Linguistics Workshop 2020, 'Collecting Texts', René van den Berg",
+      "hasGenreField": false,
+      "rules": [
+        {
+          "id": "png-pages",
+          "kind": "quantity",
+          "label": "200 pages of vernacular material",
+          "field": "wordCount",
+          "unit": "page",
+          "min": 200,
+          "note": "Translators' Handbook: 200 pages in the beginning stage — A4, 12pt, double-spaced, excluding Bible translation. Tracked as word count ÷ words-per-page.",
+          "requiredSteps": []
+        },
+        {
+          "id": "png-consent",
+          "kind": "count",
+          "label": "Informed consent for every text",
+          "min": null,
+          "requiredSteps": [
+            "consent"
+          ],
+          "note": "Written signature or recorded oral agreement. An SIL International requirement for archiving."
+        },
+        {
+          "id": "png-genres",
+          "kind": "coverage",
+          "label": "Spread across suggested genres",
+          "min": null,
+          "items": [
+            "narr-folktale",
+            "narr-legend",
+            "narr-myth",
+            "expr-riddle",
+            "hort-proverb",
+            "narr-personal",
+            "narr-dream",
+            "hort-sermon",
+            "procedural",
+            "hortatory",
+            "expository",
+            "narr-historical"
+          ],
+          "note": "The paper lists these as genres you CAN collect. No quota is stated — this tracks coverage.",
+          "requiredSteps": []
+        },
+        {
+          "id": "png-flex",
+          "kind": "count",
+          "label": "Keyboarded and interlinearised in FLEx",
+          "min": null,
+          "requiredSteps": [
+            "flex",
+            "morph"
+          ]
+        },
+        {
+          "id": "png-handover",
+          "kind": "checklist",
+          "label": "Corpus handover (collection-level, not per text)",
+          "items": [
+            {
+              "id": "png-paper-archive",
+              "label": "Printed copy lodged with the Linguistic Paper Archive"
+            },
+            {
+              "id": "png-library",
+              "label": "Printed copy lodged in the Linguistic Library (physical, on-site)"
+            },
+            {
+              "id": "png-office",
+              "label": "Electronic copy + signed release forms with the Linguistics Office"
+            },
+            {
+              "id": "png-booklet",
+              "label": "Community booklet produced and distributed (10–30 copies)"
+            }
+          ],
+          "requiredSteps": []
+        }
+      ],
+      "aliases": {
+        "narr-folktale": "folk tales",
+        "narr-personal": "personal stories",
+        "narr-historical": "historical material",
+        "procedural": "procedural",
+        "hortatory": "hortatory",
+        "expository": "expository"
+      }
+    }
+  ]
+}
