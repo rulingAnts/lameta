@@ -28,10 +28,12 @@ import { RewriteFrames } from "@sentry/integrations";
 import userSettingsSingleton from "./UserSettings";
 import pkg from "package.json";
 import { getTestEnvironment } from "../getTestEnvironment";
+import { telemetryIsOff } from "../flextext/quiet"; // FLEXTEXT-SEAM: no-sentry
 
 // frame.replace("file:///C:/dev/lameta/app/dist", "dist"),
 
 export function initializeSentry(evenIfDevelopmentBuild: boolean = false) {
+  if (telemetryIsOff()) return; // FLEXTEXT-SEAM: no-sentry
   // CRITICAL: Don't initialize Sentry in E2E tests to avoid RendererTransport issues
   // WHY: E2E tests run actual Electron renderer processes, but window.__electronCall
   // isn't set up, causing Sentry's RendererTransport to fail with:

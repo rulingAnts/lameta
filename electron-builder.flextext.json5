@@ -1,0 +1,58 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Seth Johnston.
+//
+// FlexText Metadata (for lameta): the packaging override. It EXTENDS upstream's
+// electron-builder.json5, which stays byte-identical to upstream (CLAUDE.md, "Rebrand by
+// override"). electron-builder merges the two with builder-util's deepAssign: scalar keys here
+// replace upstream's, nested objects merge key by key, and ARRAYS CONCATENATE (deduplicated), so
+// `files` below adds to upstream's list rather than replacing it. `win.target` is a string
+// upstream, so the object here replaces it outright. src/flextext/builderConfig.spec.ts pins all
+// of this against the real electron-builder merge.
+//
+// Build: scripts/flextext/build-win.sh
+//   electron-builder --config electron-builder.flextext.json5 --win --x64 --publish never
+{
+  extends: "./electron-builder.json5",
+  productName: "FlexText Metadata",
+  appId: "app.flextext.metadata",
+  // Never publish: this fork makes artifacts, not releases (PLAN.md §6).
+  publish: null,
+  // macOS-only notarisation hook from upstream; harmless on Windows but pointless here.
+  afterSign: null,
+  files: [
+    // the fork's compiled main-process add-ons are under dist/ already (dist/src/flextext/...)
+    "!helper/",
+    "!docs/flextext-metadata/"
+  ],
+  extraResources: [
+    {
+      // PyInstaller --onedir output (helper/flextext-helper.spec)
+      from: "helper/dist/flextext-helper",
+      to: "flextext-helper"
+    },
+    {
+      // pinned rclone for windows-amd64 plus its licence (downloaded in CI, checksum-verified)
+      from: "helper/third_party/rclone",
+      to: "rclone"
+    },
+    {
+      from: "helper/THIRD-PARTY-NOTICES",
+      to: "THIRD-PARTY-NOTICES"
+    }
+  ],
+  win: {
+    target: [{ target: "nsis", arch: ["x64"] }],
+    icon: "build/windows.ico",
+    fileAssociations: [
+      {
+        ext: "sprj",
+        name: "lameta project (FlexText Metadata)"
+      }
+    ]
+  },
+  nsis: {
+    artifactName: "${productName} Windows Setup ${version}.${ext}",
+    // installs beside stock lameta: its own name, appId and Start-menu entry
+    shortcutName: "FlexText Metadata"
+  }
+}

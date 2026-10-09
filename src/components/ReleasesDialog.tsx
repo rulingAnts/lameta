@@ -14,6 +14,7 @@ import axios from "axios";
 import { NotifyNoBigDeal, NotifyUpdateAvailable } from "./Notify";
 import { lameta_blue, lameta_orange } from "../containers/theme";
 import { getTestEnvironment } from "../getTestEnvironment";
+import { updateCheckIsOff } from "../flextext/quiet"; // FLEXTEXT-SEAM: no-update-check
 
 type Mode =
   | "querying"
@@ -51,6 +52,7 @@ export const ReleasesDialog: React.FunctionComponent<{}> = (props) => {
   const channelsToRecommend = getChannelsToRecommend();
   //checkForUpdates = (callback: (haveUpdates: boolean) => void) => {
   checkForUpdates = () => {
+    if (updateCheckIsOff()) return; // FLEXTEXT-SEAM: no-update-check
     axios
       .get("https://api.github.com/repos/onset/lameta/releases")
       .then((result) => {

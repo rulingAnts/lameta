@@ -14,6 +14,7 @@ import { CopyManager } from "./CopyManager";
 import { ShowReleasesDialog } from "../components/ReleasesDialog";
 import { ShowMediaFolderDialog } from "../components/MediaFolderDialog";
 import { ShowCreditsDialog } from "./CreditsDialog";
+import { flextextHelpMenuItems } from "../flextext/branding/helpMenu"; // FLEXTEXT-SEAM: help-menu
 import pkg from "package.json";
 import { getTestEnvironment } from "../getTestEnvironment";
 import { GetOtherConfigurationSettings } from "../model/Project/OtherConfigurationSettings";
@@ -420,6 +421,7 @@ export default class LametaMenu {
         {
           type: "separator"
         },
+        ...flextextHelpMenuItems(), // FLEXTEXT-SEAM: help-menu
         {
           label: t`Credits`,
           click: () => ShowCreditsDialog()

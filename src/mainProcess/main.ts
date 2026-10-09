@@ -4,6 +4,7 @@ process.env.PUBLIC = app.isPackaged
   ? process.env.DIST
   : join(process.env.DIST_ELECTRON, "../public");
 
+import "../flextext/boot"; // FLEXTEXT-SEAM: boot
 import { dialog } from "electron";
 
 import { is } from "@electron-toolkit/utils";

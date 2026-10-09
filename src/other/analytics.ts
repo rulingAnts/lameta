@@ -19,10 +19,12 @@ import { Analytics } from "@segment/analytics-node";
 import pkg from "package.json";
 import { getTestEnvironment } from "../getTestEnvironment";
 import { locateDependencyForFilesystemCall } from "./locateDependency";
+import { telemetryIsOff } from "../flextext/quiet"; // FLEXTEXT-SEAM: no-segment
 
 let analytics: Analytics | undefined;
 
 export async function initializeAnalytics() {
+  if (telemetryIsOff()) return; // FLEXTEXT-SEAM: no-segment
   try {
     let key: string | undefined = undefined;
     if (process.env.NODE_ENV === "test" || getTestEnvironment().E2E) {

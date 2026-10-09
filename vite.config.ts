@@ -64,7 +64,10 @@ export default defineConfig({
         "src/mainProcess/MainProcessImdiExport.ts",
         "src/mainProcess/preload/index.ts",
         "src/mainProcess/validateImdi.ts",
-        "src/getTestEnvironment.ts"
+        "src/getTestEnvironment.ts",
+        "src/flextext/main", // FLEXTEXT-SEAM: main-build-include
+        "src/flextext/boot.ts", // FLEXTEXT-SEAM: main-build-include
+        "src/flextext/branding/brand.ts" // FLEXTEXT-SEAM: main-build-include
       ],
       transformOptions: {
         sourcemap: !!process.env.VSCODE_DEBUG
