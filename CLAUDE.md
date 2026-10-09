@@ -20,7 +20,9 @@ In one line: lameta, rebranded **FlexText Metadata (for lameta)**, Windows x64 d
 - **Work on `flextext-metadata`**, or on a `claude/*` branch made from it.
 - ⚠ **Never push `master`, `V2`, `beta`, `release` or `V3` to this fork.** Upstream's inherited
   `.github/workflows/main.yml` ("Build/release") **builds and PUBLISHES A GITHUB RELEASE** on pushes
-  to those names. It was disabled on the fork on 2026-10-09; never rely on that.
+  to those names. On 2026-10-09 the fork had Actions not yet enabled (0 workflows registered), so it
+  cannot run; the moment Actions are enabled for our own build, disable it
+  (`gh workflow disable "Build/release" -R rulingAnts/lameta`). Never rely on either.
 - ⚠ **Never push to `onset/lameta`, and never open a pull request against it.** In a fork,
   `gh pr create` defaults to the upstream repo. Any PR from this work names
   `--repo rulingAnts/lameta` explicitly. Features meant for upstream (e.g. the issue #74 checklist)

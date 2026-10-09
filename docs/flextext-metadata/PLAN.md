@@ -211,7 +211,8 @@ is closed.
 - ⚠ **Upstream's workflow publishes releases.** `onset/lameta`'s `.github/workflows/main.yml`
   builds Windows + macOS and **publishes a GitHub Release** on every push to `V2`, `beta`,
   `release` or `V3`, and a fork inherits it.
-  - It is **disabled on the fork**.
+  - On 2026-10-09 Actions were not yet enabled on the fork, so it could not run. Enabling Actions
+    for our build activates it too, so disable it at that moment.
   - Even so, never push those branch names there.
 - ⚠ **Telemetry is off.** Upstream sends Sentry error reports and Segment analytics. A rebranded
   fork must not report into upstream's accounts, and nothing should leave a researcher's machine
@@ -256,4 +257,4 @@ is closed.
 
 
 
-- 2026-10-09: branch created from upstream `V3`; checklist model published in `checklist-model/`; upstream's Build/release workflow disabled on this fork.
+- 2026-10-09: branch created from upstream `V3`; checklist model published in `checklist-model/`. Actions are NOT yet enabled on the fork (0 workflows registered), so upstream's Build/release cannot run. Enabling Actions (needed for our Windows build) activates it too: disable it at once with `gh workflow disable "Build/release" -R rulingAnts/lameta`. A workflow present only on this branch runs on `push` to it; `workflow_dispatch` needs the file on `master`.
