@@ -53,11 +53,23 @@ export interface WindowLike {
   on(event: "page-title-updated", listener: (event: { preventDefault(): void }) => void): unknown;
 }
 
+/** "<project> 3.0.22-beta" (what lameta's HomePage sets) becomes "<project> 3.0.22-beta – FlexText Metadata (for lameta)". */
+export function brandedTitle(requested: string): string {
+  const brand = windowTitle();
+  const t = (requested ?? "").trim();
+  if (!t || t === "lameta" || t === "Main window") return brand;
+  if (t.includes(brand)) return t;
+  return `${t} – ${brand}`;
+}
+
 /**
- * Pins the fork's title on a window: sets it now and cancels the renderer's own title updates
- * (index.html says "lameta"; upstream's index.html stays untouched).
+ * Pins the fork's title on a window: sets it now, cancels the renderer's own title updates
+ * (index.html says "lameta"; upstream's index.html stays untouched), and wraps `setTitle` so a
+ * title set from the renderer (HomePage sets "<project> <version>") keeps the brand.
  */
 export function brandWindow(win: WindowLike): void {
+  const original = win.setTitle.bind(win);
+  win.setTitle = (title: string) => original(brandedTitle(title));
   win.setTitle(windowTitle());
   win.on("page-title-updated", (e) => {
     e.preventDefault();

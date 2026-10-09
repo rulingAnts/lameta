@@ -27,6 +27,7 @@ import { IFolderType } from "../model/Folder/Folder";
 import { MediaFolderDialog } from "./MediaFolderDialog";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { lameta_blue, lameta_green, lameta_orange } from "../containers/theme";
+import { flextextWorkspaceTabHeaders, flextextWorkspaceTabPanels } from "../flextext/workspaceTabs"; // FLEXTEXT-SEAM: workspace-tabs
 export interface IProps {
   project: Project;
   authorityLists: AuthorityLists;
@@ -317,6 +318,7 @@ class Home extends React.Component<IProps> {
                   <Trans>People</Trans>
                 </div>
               </Tab>
+              {flextextWorkspaceTabHeaders() /* FLEXTEXT-SEAM: workspace-tabs */}
             </TabList>
             <TabPanel className={"tab-panel-project"}>
               <ProjectTab
@@ -339,6 +341,7 @@ class Home extends React.Component<IProps> {
                 authorityLists={this.props.authorityLists}
               />
             </TabPanel>
+            {flextextWorkspaceTabPanels(this.props.project) /* FLEXTEXT-SEAM: workspace-tabs */}
           </Tabs>
           {/* gets placed on top right of the tabs */}
           {/* <NotificationIndicator

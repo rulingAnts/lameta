@@ -59,6 +59,7 @@ import { sanitizeForArchive } from "../../other/sanitizeForArchive";
 import { initializeSanitizeForArchive } from "../../other/sanitizeForArchive";
 import { VocabularyTranslations } from "./VocabularyTranslations";
 import { normalizeContinentValueForAmericasOnly } from "./ContinentMigration";
+import { flextextOnProjectChanged } from "../../flextext/device/projectHooks"; // FLEXTEXT-SEAM: project-open
 
 let sCurrentProject: Project | null = null;
 
@@ -86,6 +87,7 @@ export class ProjectHolder {
     }
     this.projectInternal = p;
     sCurrentProject = p;
+    flextextOnProjectChanged(p); // FLEXTEXT-SEAM: project-open
   }
 }
 

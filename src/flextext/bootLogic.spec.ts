@@ -3,7 +3,7 @@
 
 import { describe, it, expect, vi } from "vitest";
 import { join } from "path";
-import { brandWindow, configureApp, windowTitle } from "./main/bootLogic";
+import { brandWindow, brandedTitle, configureApp, windowTitle } from "./main/bootLogic";
 import { APP_NAME, APP_TITLE, USER_DATA_DIR_NAME } from "./branding/brand";
 
 function fakeApp(appData = join("C:", "Users", "x", "AppData", "Roaming")) {
@@ -68,17 +68,30 @@ describe("boot seam: window title", () => {
 
   it("brandWindow sets the title and cancels the renderer's title updates", () => {
     const listeners: Record<string, (e: any) => void> = {};
+    const setTitle = vi.fn();
     const win = {
-      setTitle: vi.fn(),
+      setTitle,
       on: vi.fn((ev: string, l: (e: any) => void) => {
         listeners[ev] = l;
       })
     };
     brandWindow(win as any);
-    expect(win.setTitle).toHaveBeenCalledWith(APP_TITLE);
+    expect(setTitle).toHaveBeenCalledWith(APP_TITLE);
     const e = { preventDefault: vi.fn() };
     listeners["page-title-updated"](e); // index.html's <title>lameta</title> arriving
     expect(e.preventDefault).toHaveBeenCalled();
-    expect(win.setTitle).toHaveBeenLastCalledWith(APP_TITLE);
+    expect(setTitle).toHaveBeenLastCalledWith(APP_TITLE);
+  });
+
+  it("a title set from the renderer (project name + lameta version) keeps the brand", () => {
+    const setTitle = vi.fn();
+    const win = { setTitle, on: vi.fn() };
+    brandWindow(win as any);
+    win.setTitle("Edolo sample 3.0.22-beta"); // what lameta's HomePage does on render
+    expect(setTitle).toHaveBeenLastCalledWith(`Edolo sample 3.0.22-beta – ${APP_TITLE}`);
+    win.setTitle("lameta");
+    expect(setTitle).toHaveBeenLastCalledWith(APP_TITLE);
+    expect(brandedTitle(`x – ${APP_TITLE}`)).toBe(`x – ${APP_TITLE}`);
+    expect(brandedTitle("")).toBe(APP_TITLE);
   });
 });
