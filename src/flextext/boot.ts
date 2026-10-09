@@ -16,6 +16,8 @@
 import { app } from "electron";
 import { brandWindow, configureApp } from "./main/bootLogic";
 import { registerFlextextMain } from "./main/registerMain";
+// each main-process add-on registers itself with addMainRegistrar when imported:
+import "./main/helper/registerHelper";
 
 const booted = configureApp(app);
 console.log(`[flextext] ${booted.name}: userData=${booted.userData}`);
