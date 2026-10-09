@@ -3,8 +3,8 @@
 
 import { describe, it, expect, vi } from "vitest";
 import { join } from "path";
-import { brandWindow, configureApp, windowTitle } from "./bootLogic";
-import { APP_NAME, APP_TITLE, USER_DATA_DIR_NAME } from "../branding/brand";
+import { brandWindow, configureApp, windowTitle } from "./main/bootLogic";
+import { APP_NAME, APP_TITLE, USER_DATA_DIR_NAME } from "./branding/brand";
 
 function fakeApp(appData = join("C:", "Users", "x", "AppData", "Roaming")) {
   const paths: Record<string, string> = {

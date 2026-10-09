@@ -1,0 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Runtime dependencies of the FlexText Metadata helper (Python 3.12 x64; the architecture must
+# match FieldWorks). flexicon is Windows-only, so it is pinned by platform marker: on Linux the
+# helper runs with the FakeFlexicon only (tests, CI on ubuntu).
+psutil>=6.0,<8
+pyflexicon>=4.12,<5 ; sys_platform == "win32"

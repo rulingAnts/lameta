@@ -1,0 +1,8 @@
+# build output (PyInstaller) and downloaded third-party binaries
+build/
+dist/
+third_party/
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
