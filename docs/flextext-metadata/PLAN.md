@@ -278,3 +278,16 @@ rules:
 
 - 2026-10-09: branch created from upstream `V3`; checklist model published in `checklist-model/`. Actions are NOT yet enabled on the fork (0 workflows registered), so upstream's Build/release cannot run. Enabling Actions (needed for our Windows build) activates it too: disable it at once with `gh workflow disable "Build/release" -R rulingAnts/lameta`. A workflow present only on this branch runs on `push` to it; `workflow_dispatch` needs the file on `master`.
 - 2026-10-09: the fork tracks upstream releases. Add-ons are confined to fork-owned territory plus registered seams, enforced by a footprint test; the rebrand is done by override, never by editing `package.json` or `electron-builder.json5`.
+- 2026-10-10: A0–A5 built on Linux (see `REPORT-2026-10-10.md`). Decisions made overnight:
+  - The helper has TWO lanes, not one thread: a single "flex" thread owns every LCM call (as planned); a second "general" thread serves rclone, so a long FLEx scan never blocks backup progress. Cancel drops a queued request or flags a running one.
+  - Backup credentials reach rclone through `RCLONE_CONFIG_FTS3_*` environment variables set when `rclone rcd` starts, so changing settings restarts rcd (`backupConfigure`); the secret is decrypted in the Electron main process and never returned to the renderer. Without `safeStorage` encryption the secret is not stored at all.
+  - A restore goes into a folder that is absent or empty and is never the open project or inside it; the helper enforces this, not only the UI.
+  - Marker timestamps are ISO 8601 UTC to the second, as in the §5 example; the contract is unchanged.
+  - The Sessions/ watcher ignores a `.session` change whose content equals what the in-memory session would write (lameta's own save), and defers a change to the selected session until the selection moves.
+  - Under vitest the project-open hook is off unless a test opts in, so upstream's tests never write a marker into `sample data`.
+  - The checklist port drops the DOM-based `parseFlexText`: the helper's `textStats` feeds `fxStepsFromStats` instead. The Status rule runs only when the fork saves a session's progress, never on load (spec §3).
+  - One `workspace-tabs` seam registers every fork tab (Backup now, Checklist later); the Backup tab is a top-level tab beside Project / Sessions / People.
+  - lameta runs with `contextIsolation:false`, so the helper is exposed with `ipcMain.handle` + `ipcRenderer.invoke` wrappers (upstream's own pattern), not `contextBridge`.
+  - The fork's own version (`FLEXTEXT_VERSION`, 0.1.0) lives in `src/flextext/branding/brand.ts`, independent of lameta's `package.json` version.
+  - rclone is pinned at v1.68.2 (checksum from that release's SHA256SUMS); bump deliberately.
+  - Node 22.16.0 is required by upstream's `engines`; a cloud session must download it (the image ships 22.22).
