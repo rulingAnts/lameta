@@ -253,8 +253,28 @@ is closed.
 - How corpus-keeper's FLExTools modules and this app divide FLEx → lameta sync. This app may take
   over corpus-keeper's planned resident phase.
 
+## Tracking upstream (Seth, 2026-10-09): add-ons as modules, upstream as a dependency
+
+Seth: *"I would kind of like to keep integrating new lameta versions as long as I can keep my
+specific add-ons safe and modularized."*
+
+So the fork is built to stay mergeable, and CLAUDE.md ("STAY MERGEABLE WITH UPSTREAM") holds the
+rules:
+- **Fork-owned territory:** add-ons live in `src/flextext/`, `helper/`, `docs/flextext-metadata/`,
+  `scripts/flextext/` and their own workflow file.
+- **Registered seams:** every edit to an upstream file is a one-to-three-line hook, marked
+  `FLEXTEXT-SEAM` and listed in `src/flextext/SEAMS.md`.
+- **A footprint test** fails the build on an unregistered upstream edit or a seam lost in a merge.
+- **Rebrand by override:** `electron-builder.flextext.json5` uses `extends` on upstream's config,
+  and a first-import boot seam sets the app name and `userData`. `package.json` and upstream's
+  builder config stay byte-identical, because upstream bumps `version` every release.
+- **Sync:** merge upstream release tags through an `upstream-sync/<version>` branch, footprint
+  check and tests green, then a PR within the fork. Never rebase published history.
+- **Shrink:** an add-on upstream accepts (the #74 checklist) leaves the fork.
+
 ## Fork decision log
 
 
 
 - 2026-10-09: branch created from upstream `V3`; checklist model published in `checklist-model/`. Actions are NOT yet enabled on the fork (0 workflows registered), so upstream's Build/release cannot run. Enabling Actions (needed for our Windows build) activates it too: disable it at once with `gh workflow disable "Build/release" -R rulingAnts/lameta`. A workflow present only on this branch runs on `push` to it; `workflow_dispatch` needs the file on `master`.
+- 2026-10-09: the fork tracks upstream releases. Add-ons are confined to fork-owned territory plus registered seams, enforced by a footprint test; the rebrand is done by override, never by editing `package.json` or `electron-builder.json5`.

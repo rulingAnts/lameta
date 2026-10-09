@@ -99,11 +99,70 @@ So (PLAN §1):
 - **No real project data, recordings, speaker names or consent records** in tests or fixtures.
   Synthesize them.
 
-## Upstream conventions to leave alone
+## 🚩 STAY MERGEABLE WITH UPSTREAM: the add-ons are modules, upstream is a dependency (Seth, 2026-10-09)
 
-Upstream uses beads for issues (`.beads/`, `.claude/skills/beads/`) and its own Playwright e2e
-suite. Don't modify them. Keep changes to upstream files minimal and well-separated (new modules
-over edits), so that merging new upstream releases stays cheap.
+> *"I would kind of like to keep integrating new lameta versions as long as I can keep my specific
+> add-ons safe and modularized."*
+
+This fork takes new lameta releases for as long as it lives. **Every change you make either sits
+in fork-owned territory, or is a registered seam.** There is no third kind.
+
+**Fork-owned territory** (edit freely):
+- `src/flextext/**`: all add-on TypeScript (helper client, backup, checklist, marker, branding).
+- `helper/**`: the Python helper.
+- `docs/flextext-metadata/**`, `scripts/flextext/**`.
+- `.github/workflows/flextext-metadata-*.yml`.
+- `electron-builder.flextext.json5`.
+- This `CLAUDE.md`'s fork section.
+
+**Seams** (the ONLY permitted edits to upstream files):
+- **One to three lines** that call into `src/flextext/`.
+- Each marked with a comment: `// FLEXTEXT-SEAM: <name>` (`#` in YAML or Python).
+- Each listed in **`src/flextext/SEAMS.md`**: file, name, purpose, what to re-apply if a merge loses
+  it.
+- **Prefer one seam that registers many things over many seams**: one tab-registration hook, one
+  menu hook, one boot import.
+
+**The footprint check FAILS the build when either rule breaks.** `src/flextext/footprint.spec.ts`
+(vitest), also run in CI:
+1. Every `FLEXTEXT-SEAM` marker in the tree is in `SEAMS.md`, and every `SEAMS.md` entry still
+   exists. A lost seam after a merge is a red test, not a silent loss of an add-on.
+2. Every upstream file this branch changes (`git diff --name-only upstream/V3...HEAD`, minus
+   fork-owned territory) is listed in `SEAMS.md`. An unregistered edit to an upstream file is a red
+   test. When `upstream/V3` isn't fetched, the test says so and skips; CI fetches it.
+
+**Rebrand by override, never by editing upstream config:**
+- `electron-builder.flextext.json5` uses `extends` on upstream's `electron-builder.json5` and
+  overrides `productName`, `appId`, x64, `extraResources` (the helper and rclone), and
+  `publish: null`. Verify how electron-builder merges arrays under `extends`.
+- A **boot seam** is the FIRST import in the main-process entry: `import "./flextext/boot"`, which
+  sets the app name and an explicit `userData` path before anything (electron-store) reads them.
+- **`package.json` and `electron-builder.json5` stay byte-identical to upstream.** Upstream bumps
+  `version` every release, and an edit near it conflicts every time. Fork commands live in
+  `scripts/flextext/`, not in `package.json` scripts.
+
+**Avoid new npm dependencies.** Node's own `child_process` / `fs` / `fs.watch` and a hand-written
+JSON-RPC client cover the add-ons. If one is truly needed, it is a registered seam (`package.json`
++ `yarn.lock`), and `yarn.lock` is regenerated after every upstream merge.
+
+**Syncing with upstream: merge, never rebase.**
+- Take upstream **release tags**, or `V3`'s head when a specific fix is needed. Fetch with
+  `--no-tags`; on macOS fetch a single tag explicitly, because two old upstream tags differ only by
+  case.
+- Merge into a branch `upstream-sync/<version>`.
+- Resolve conflicts **in favour of upstream's code, then re-apply the seam** from `SEAMS.md`. Run
+  the footprint check and the full test suite.
+- Then merge that branch into `flextext-metadata`, by a PR **within** `rulingAnts/lameta`
+  (`--repo rulingAnts/lameta --base flextext-metadata`).
+- `scripts/flextext/sync-upstream.sh` automates the fetch, merge and checks, and stops at the
+  first conflict.
+
+**Shrink the fork when you can.** An add-on upstream accepts (the issue #74 progress checklist is
+the obvious candidate) stops being ours to carry. Offer it later as a clean per-feature branch made
+from upstream, without the rebrand.
+
+**Upstream conventions to leave alone:** beads (`.beads/`, `.claude/skills/beads/`), the
+Playwright e2e suite, `AGENTS.md`, `.github/AGENTS.md`.
 
 ---
 
